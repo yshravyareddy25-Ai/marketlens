@@ -4,8 +4,7 @@
 
 MarketLens combines **LLM application engineering** with **modern reactive frontend architecture**. You enter a company or market topic, and an AI analysis streams in live — word by word — alongside the stock's real trading data, rendered in a hand-built D3 chart.
 
-🔗 **Live demo:** _add link if deployed_
-📺 **Demo video / GIF:** _add a short screen recording here_
+🔗 **Live demo:** https://marketlens-ai-ruby.vercel.app/
 
 ---
 

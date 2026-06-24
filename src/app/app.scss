@@ -60,3 +60,13 @@
 .panel-content strong { color: #fff; }
 .panel-content p { margin: 0 0 8px; }
 .panel-content ul { margin: 6px 0; padding-left: 18px; }
+.keys {
+  max-width: 760px; margin: 24px auto 0; padding: 18px 24px;
+  background: #11161f; border: 1px solid #232b3a; border-radius: 12px;
+}
+.keys-title { color: #e6edf3; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.keys-note { color: #6b7689; font-size: 12px; margin-bottom: 12px; line-height: 1.5; }
+.keys input {
+  width: 100%; padding: 11px 14px; margin-bottom: 10px; font-size: 14px;
+  background: #0b0e14; border: 1px solid #232b3a; border-radius: 8px; color: #e6edf3; outline: none;
+}

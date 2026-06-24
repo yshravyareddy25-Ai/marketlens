@@ -4,6 +4,20 @@
     <div class="tag">AI Financial Insights · live stream</div>
   </header>
 
+   <!-- API key setup (visitors use their own keys) -->
+  <div class="keys" *ngIf="!keys.hasKeys">
+    <div class="keys-title">🔑 Enter your API keys to begin</div>
+    <div class="keys-note">
+      Keys are used only in your browser for this session — never stored or sent anywhere except Anthropic and Finnhub.
+    </div>
+    <input type="password" placeholder="Anthropic API key (sk-ant-...)"
+      [value]="keys.anthropicKey()"
+      (input)="keys.anthropicKey.set($any($event.target).value)" />
+    <input type="password" placeholder="Finnhub API key"
+      [value]="keys.finnhubKey()"
+      (input)="keys.finnhubKey.set($any($event.target).value)" />
+  </div>
+
   <div class="search">
     <input
       [(ngModel)]="query"

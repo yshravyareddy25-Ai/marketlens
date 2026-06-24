@@ -1,18 +1,15 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { ApiKeysService } from './api-keys';
 
 @Injectable({ providedIn: 'root' })
 export class MarketStreamService {
-
+  private apiKeys = inject(ApiKeysService);
   /*
     Streams an AI financial analysis token-by-token.
     Returns an RxJS Observable that emits each text chunk as it arrives
     from the Anthropic streaming API (Server-Sent Events).
 
-    This is the core engineering piece: we read a raw network stream,
-    parse the SSE chunks, extract each token, and bridge it into RxJS
-    so the rest of the app reacts to it the Angular way.
   */
   streamAnalysis(query: string): Observable<string> {
     const subject = new Subject<string>();
@@ -26,7 +23,7 @@ export class MarketStreamService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': environment.anthropicApiKey,
+        'x-api-key': this.apiKeys.anthropicKey(),
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true',
       },

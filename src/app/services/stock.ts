@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-
+import { inject, Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { ApiKeysService } from './api-keys';
 
 export interface StockQuote {
   ticker: string;
@@ -13,8 +13,12 @@ export interface StockQuote {
 
 export interface PricePoint { date: Date; close: number; }
 
+
 @Injectable({ providedIn: 'root' })
 export class StockService {
+
+      private apiKeys = inject(ApiKeysService);
+
 
   // built-in map for the common companies you'll demo with — reliable + instant
   private tickerMap: Record<string, string> = {
@@ -41,7 +45,7 @@ export class StockService {
     // 3. fallback: ask Finnhub's symbol search
     try {
       const res = await fetch(
-        `https://finnhub.io/api/v1/search?q=${encodeURIComponent(input)}&token=${environment.finnhubApiKey}`
+        `https://finnhub.io/api/v1/search?q=${encodeURIComponent(input)}&token=${this.apiKeys.finnhubKey()}`
       );
       const data = await res.json();
       if (data.result && data.result.length > 0) {
@@ -55,7 +59,7 @@ export class StockService {
   async getQuote(ticker: string): Promise<StockQuote | null> {
     try {
       const res = await fetch(
-        `https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${environment.finnhubApiKey}`
+        `https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${this.apiKeys.finnhubKey()}`
       );
       const q = await res.json();
       if (q.c === 0) return null;   // Finnhub returns 0 for unknown tickers

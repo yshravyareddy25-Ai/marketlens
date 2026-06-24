@@ -1,11 +1,23 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DashboardStateService } from './services/dashboard-state';
+import { StockChart } from './components/stock-chart/stock-chart';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule, StockChart],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('clarity');
+  // bring in our state service — the component reads everything from it
+  state = inject(DashboardStateService);
+
+  query = '';
+
+  run() {
+    this.state.analyze(this.query);
+  }
 }
